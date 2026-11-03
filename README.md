@@ -2,12 +2,27 @@
 
 ## Getting Started
 
-To run this application:
+The following tools are required to run this project:
+
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- [NodeJS 26.13.0](https://nodejs.org/en/download)
+- [pnpm](https://pnpm.io/)
+
+### Development
+
+Copy and complete the `.env` file:
 
 ```bash
-pnpm install
-pnpm run dev
+cp .env.example .env
 ```
+
+Start the containers:
+
+```bash
+docker compose up -d --build --wait
+```
+
+Open the app in your browser <http://localhost:3000>.
 
 ## Documentation
 
