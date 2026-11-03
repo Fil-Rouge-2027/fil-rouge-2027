@@ -2,7 +2,7 @@
   "projectName": "fil-rouge-2027",
   "mode": "file-router",
   "typescript": true,
-  "packageManager": "npm",
+  "packageManager": "pnpm",
   "includeExamples": true,
   "tailwind": true,
   "projectPreset": "default",
