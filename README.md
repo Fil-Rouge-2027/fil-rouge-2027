@@ -74,7 +74,7 @@ docs: explain local setup
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 
-## Linting & Formatting
+## Linting & Formatting & Build
 
 This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
 
@@ -82,4 +82,5 @@ This project uses [Biome](https://biomejs.dev/) for linting and formatting. The 
 pnpm run lint
 pnpm run format
 pnpm run check
+pnpm run build
 ```
