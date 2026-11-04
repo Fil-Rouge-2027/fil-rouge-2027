@@ -1,0 +1,11 @@
+.git
+node_modules
+.env
+.env.*
+dist
+dist-ssr
+.nitro
+.tanstack
+.wrangler
+.output
+.vinxi
