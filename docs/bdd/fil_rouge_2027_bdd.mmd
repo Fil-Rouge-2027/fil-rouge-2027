@@ -1,0 +1,106 @@
+---
+config:
+  theme: neutral
+---
+classDiagram
+    direction TB
+
+    %% MVP scope: docs/technical.md. Conceptual model, not a physical SQL schema.
+    %% DifficultyLevel, Route and Theme values follow the reference diagram.
+    %% Catalogs are lookup tables shown as enums; simple junctions are omitted.
+    %% Geometry uses WGS84 / EPSG:4326. Distances/elevations are meters.
+    %% Duration is minutes. Timestamps are timezone-aware.
+    %% Map previews and comparisons use Trek data without additional tables.
+    %% Authentication session storage is an implementation detail, omitted here.
+
+    class User {
+        +int id
+        +string display_name
+        +string email
+        +string password_hash
+        +string avatar_url
+        +datetime created_at
+    }
+
+    class Trek {
+        +int id
+        +string name
+        +string description
+        +string city
+        +string massif
+        +string region
+        +MultiLineString geom
+        +Point departure_location
+        +float distance_m
+        +int duration_minutes
+        +int ascent_m
+        +int descent_m
+        +DifficultyLevel difficulty
+        +Route route
+        +Theme[] themes
+        +string source_url
+    }
+
+    class Photo {
+        +int id
+        +string url
+        +string alt_text
+        +string attribution
+        +string license
+        +int position
+    }
+
+    class SavedTrek {
+        +int id
+        +bool is_favorite
+        +bool is_to_do
+        +datetime saved_at
+        +datetime updated_at
+    }
+
+    class SearchHistory {
+        +int id
+        +string query
+        +Point center
+        +float radius_m
+        +JSON filters
+        +datetime searched_at
+    }
+
+    class DifficultyLevel {
+        <<enumeration>>
+        VERY_EASY = 1
+        EASY = 2
+        MEDIUM = 3
+        HARD = 4
+        VERY_HARD = 5
+    }
+
+    class Route {
+        <<enumeration>>
+        LOOP = 1
+        ROUND_TRIP = 2
+        CROSSING = 3
+    }
+
+    class Theme {
+        <<enumeration>>
+        FAUNA = 1
+        FLORA = 2
+        VIEWPOINT = 4
+        ARCHITECTURE = 5
+        PASTORALISM = 6
+        GEOLOGY = 7
+        LAKE_AND_GLACIER = 8
+        PEAK = 9
+        REFUGE = 10
+        ARCHAEOLOGY_AND_HISTORY = 11
+    }
+
+    Trek "0..*" --> "1" DifficultyLevel : difficulty
+    Trek "0..*" --> "1" Route : route
+    Trek "0..*" --> "0..*" Theme : themes
+    Trek "1" -- "0..*" Photo : photos
+    User "1" -- "0..*" SavedTrek : saved_treks
+    Trek "1" -- "0..*" SavedTrek : saved_by
+    User "1" -- "0..*" SearchHistory : searches

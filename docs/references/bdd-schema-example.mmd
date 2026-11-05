@@ -1,0 +1,142 @@
+---
+config:
+  theme: neutral
+---
+classDiagram
+    direction LR
+
+    %% Simplified CONCEPTUAL model, not a literal database schema.
+    %% Configurable lookup tables are displayed as enumeration types.
+    %% Enum numbers preserve upstream basic-fixture primary keys.
+    %% Identifiers are shortened English translations of the seed labels.
+    %% Concrete Topology inheritance is simplified to class inheritance.
+    %% Optionality, technical metadata, join tables and integrations are omitted.
+    %% Includes route content, access, safety, accessibility and publication fields.
+    %% Trek-to-POI associations are spatially calculated, not direct FKs.
+    %% Geometry lengths and elevations are in meters; duration is in hours.
+
+    class Topology {
+        +int id
+        +Geometry geom
+        +float length_2d
+        +int ascent
+        +int descent
+        +int min_elevation
+        +int max_elevation
+    }
+
+    class Trek {
+        +string name
+        +string description_teaser
+        +string description
+        +string ambiance
+        +string departure
+        +string arrival
+        +float duration
+        +Practice practice
+        +DifficultyLevel difficulty
+        +Route route
+        +Theme[] themes
+        +string access
+        +string public_transport
+        +string advised_parking
+        +Point parking_location
+        +string advice
+        +string gear
+        +Accessibility[] accessibilities
+        +AccessibilityLevel accessibility_level
+        +string accessibility_advice
+        +bool published
+        +date publication_date
+    }
+
+    class POI {
+        +string name
+        +string description
+        +POIType type
+        +bool published
+        +date publication_date
+    }
+
+    class DifficultyLevel {
+        <<enumeration>>
+        VERY_EASY = 1
+        EASY = 2
+        MEDIUM = 3
+        HARD = 4
+        VERY_HARD = 5
+    }
+
+    class Practice {
+        <<enumeration>>
+        MOUNTAIN_BIKING = 1
+        CYCLING = 2
+        HORSE_RIDING = 3
+        HIKING = 4
+        MOUNTAINEERING = 5
+        TRAIL_RUNNING = 6
+        ELECTRIC_MOUNTAIN_BIKING = 7
+    }
+
+    class Route {
+        <<enumeration>>
+        LOOP = 1
+        ROUND_TRIP = 2
+        CROSSING = 3
+    }
+
+    class Theme {
+        <<enumeration>>
+        FAUNA = 1
+        FLORA = 2
+        VIEWPOINT = 4
+        ARCHITECTURE = 5
+        PASTORALISM = 6
+        GEOLOGY = 7
+        LAKE_AND_GLACIER = 8
+        PEAK = 9
+        REFUGE = 10
+        ARCHAEOLOGY_AND_HISTORY = 11
+    }
+
+    class Accessibility {
+        <<enumeration>>
+        WHEELCHAIR = 1
+        STROLLER = 2
+        JOELETTE = 3
+    }
+
+    class AccessibilityLevel {
+        <<enumeration>>
+        BEGINNER = 1
+        EXPERIENCED = 2
+    }
+
+    class POIType {
+        <<enumeration>>
+        SMALL_HERITAGE = 1
+        FLORA = 2
+        FAUNA = 3
+        VIEWPOINT = 4
+        REFUGE = 5
+        LAKE = 6
+        PEAK = 7
+        GEOLOGY = 8
+        ARCHAEOLOGY = 9
+        HISTORY = 10
+        ARCHITECTURE = 11
+        GLACIER = 12
+        KNOW_HOW = 13
+        PASTORALISM = 14
+        MOUNTAIN_PASS = 15
+    }
+
+    Topology <|-- Trek
+    Topology <|-- POI
+    Trek --> Practice : practice
+    Trek --> DifficultyLevel : difficulty
+    Trek --> Route : route
+    Trek --> Theme : themes
+    Trek --> Accessibility : accessibilities
+    Trek --> AccessibilityLevel : accessibility_level
+    POI --> POIType : type

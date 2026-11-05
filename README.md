@@ -26,10 +26,12 @@ Open the app in your browser <http://localhost:3000>.
 
 ## Documentation
 
-- [Guide](/docs/guide.md)
-- [Technical](/docs/technical.md)
-- [User](/docs/user.md)
-- [Deployment](/docs/deployment.md)
+- [Guide](./docs/guide.md)
+- [Specifications](./docs/specs.md)
+- [Technical](./docs/technical.md)
+- [User](./docs/user.md)
+- [Deployment](./docs/deployment.md)
+- [Architecture](./docs/architecture.md)
 
 ## Conventions
 
