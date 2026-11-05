@@ -1,5 +1,5 @@
 {
-  "id": "c393ce71-9874-4a6c-90df-121cde38364e",
+  "id": "682d62d8-5d0d-48e3-81b1-34154bffcb03",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,45 +8,54 @@
       "name": "users",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "users_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "default": "uuidv7()"
         },
-        "name": {
-          "name": "name",
+        "user_name": {
+          "name": "user_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_email": {
+          "name": "user_email",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "email": {
-          "name": "email",
-          "type": "varchar(255)",
+        "user_password_hash": {
+          "name": "user_password_hash",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "user_avatar_url": {
+          "name": "user_avatar_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_created_at": {
+          "name": "user_created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_email_unique": {
-          "name": "users_email_unique",
+        "users_user_email_unique": {
+          "name": "users_user_email_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "email"
+            "user_email"
           ]
         }
       },
