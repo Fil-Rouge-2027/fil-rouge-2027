@@ -4,6 +4,7 @@ services:
     init: true
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-fil_rouge_2027}
+      SESSION_SECRET: ${SESSION_SECRET:?SESSION_SECRET is not set in .env file}
     ports:
       - "127.0.0.1:3000:3000"
     volumes:
