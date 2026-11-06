@@ -10,19 +10,19 @@ classDiagram
     %% Catalogs are lookup tables shown as enums; simple junctions are omitted.
     %% Geometry uses WGS84 / EPSG:4326. Distances/elevations are meters.
     %% Duration is minutes. Timestamps are timezone-aware.
-    %% Map previews and comparisons use Trek data without additional tables.
+    %% Map previews and comparisons use Hike data without additional tables.
     %% Authentication session storage is an implementation detail, omitted here.
 
     class User {
         +int id
-        +string display_name
+        +string name
         +string email
         +string password_hash
         +string avatar_url
         +datetime created_at
     }
 
-    class Trek {
+    class Hike {
         +int id
         +string name
         +string description
@@ -50,7 +50,7 @@ classDiagram
         +int position
     }
 
-    class SavedTrek {
+    class SavedHike {
         +int id
         +bool is_favorite
         +bool is_to_do
@@ -97,10 +97,10 @@ classDiagram
         ARCHAEOLOGY_AND_HISTORY = 11
     }
 
-    Trek "0..*" --> "1" DifficultyLevel : difficulty
-    Trek "0..*" --> "1" Route : route
-    Trek "0..*" --> "0..*" Theme : themes
-    Trek "1" -- "0..*" Photo : photos
-    User "1" -- "0..*" SavedTrek : saved_treks
-    Trek "1" -- "0..*" SavedTrek : saved_by
+    Hike "0..*" --> "1" DifficultyLevel : difficulty
+    Hike "0..*" --> "1" Route : route
+    Hike "0..*" --> "0..*" Theme : themes
+    Hike "1" -- "0..*" Photo : photos
+    User "1" -- "0..*" SavedHike : saved_treks
+    Hike "1" -- "0..*" SavedHike : saved_by
     User "1" -- "0..*" SearchHistory : searches
